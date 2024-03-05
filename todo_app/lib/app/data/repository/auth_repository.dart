@@ -6,4 +6,5 @@ class AuthRepository{
   AuthRepository(this.appWriteProvider);
 
   Future<models.User> signup(Map map) => appWriteProvider.signup(map);
+  Future<models.Session> login(Map map) => appWriteProvider.login(map);
 }

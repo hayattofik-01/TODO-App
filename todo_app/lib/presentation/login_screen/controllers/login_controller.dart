@@ -7,10 +7,9 @@ import 'package:todo_app/app/data/repository/auth_repository.dart';
 import 'package:todo_app/app/data/response/api_response_status.dart';
 import 'package:todo_app/core/constants/routes/routes_name.dart';
 
-class SignUpController extends GetxController {
+class LoginController extends GetxController {
   final AuthRepository _authRepository = AuthRepository(AppWriteProvider());
 
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -21,10 +20,10 @@ class SignUpController extends GetxController {
   final RxBool passwordVisibility = true.obs;
 
   bool get isSignUpEnabled =>
-      nameController.text.isNotEmpty &&
+     
       emailController.text.isNotEmpty &&
       passwordController.text.isNotEmpty &&
-      nameError.value.isEmpty &&
+    
       emailError.value.isEmpty &&
       passwordError.value.isEmpty;
 
@@ -32,13 +31,7 @@ class SignUpController extends GetxController {
     passwordVisibility.value = !passwordVisibility.value;
   }
 
-  void validateName(String value) {
-    if (value.isEmpty) {
-      nameError.value = 'Name cannot be empty';
-    } else {
-      nameError.value = '';
-    }
-  }
+  
 
   void validateEmail(String value) {
     // Regular expression for email validation
@@ -68,11 +61,11 @@ Future<void> signUp() async {
     
     status(Status.loading);
 
-    await _authRepository.signup({
-      "userId": ID.unique(),
+    await _authRepository.login({
+      
       "email": emailController.text.trim(),
       "password": passwordController.text.trim(),
-      "name": nameController.text.trim(),
+
     }).catchError((error){
       if (error is AppwriteException){
         Get.snackbar(
@@ -90,19 +83,10 @@ Future<void> signUp() async {
 
     });
 
-
-    // Show a snackbar with a success message
-    Get.snackbar(
-      'Success',
-      'Successfully registered!',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 4),
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
+  
 
     // Clear the form
-    nameController.clear();
+    
     emailController.clear();
     passwordController.clear();
 
@@ -119,7 +103,7 @@ Future<void> signUp() async {
 
   @override
   void onClose() {
-    nameController.dispose();
+    
     emailController.dispose();
     passwordController.dispose();
     super.onClose();

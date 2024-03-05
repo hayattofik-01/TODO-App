@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/core/constants/constants.dart';
+import 'package:todo_app/core/constants/routes/routes_name.dart';
+import 'package:todo_app/presentation/login_screen/controllers/login_controller.dart';
 import 'package:todo_app/presentation/signup_screen/controllers/signup_controller.dart';
 
 import 'package:todo_app/presentation/signup_screen/screen_widgets/password_field.dart';
 import 'package:todo_app/presentation/signup_screen/screen_widgets/text_button.dart';
 import 'package:todo_app/presentation/signup_screen/screen_widgets/text_field.dart';
 
-class SignUpScreen extends StatelessWidget {
-  final SignUpController _signUpController = Get.put(SignUpController());
+class LoginScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.offNamed(RoutesName.intial);
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -37,44 +38,39 @@ class SignUpScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Register",
+                            "Login ",
                             style: kHeadline,
                           ),
                           SizedBox(height: 50),
-                          MyTextField(
-                            controller: _signUpController.nameController,
-                            hintText: 'Name',
-                            inputType: TextInputType.name,
-                            onChanged: _signUpController.validateName,
-                          ),
-                          Obx(() => _signUpController.nameError.value.isNotEmpty
+
+                          Obx(() => controller.nameError.value.isNotEmpty
                               ? Text(
-                                  _signUpController.nameError.value,
+                                  controller.nameError.value,
                                   style: TextStyle(color: Colors.red),
                                 )
                               : SizedBox()),
                           MyTextField(
-                            controller: _signUpController.emailController,
+                            controller: controller.emailController,
                             hintText: 'Email',
                             inputType: TextInputType.emailAddress,
-                            onChanged: _signUpController.validateEmail,
+                            onChanged: controller.validateEmail,
                           ),
-                          Obx(() => _signUpController.emailError.value.isNotEmpty
+                          Obx(() => controller.emailError.value.isNotEmpty
                               ? Text(
-                                  _signUpController.emailError.value,
+                                  controller.emailError.value,
                                   style: TextStyle(color: Colors.red),
                                 )
                               : SizedBox()),
-                       Obx(() => PasswordField(
-  controller: _signUpController.passwordController,
-  isPasswordVisible: _signUpController.passwordVisibility.value,
-  onTap: _signUpController.togglePasswordVisibility,
-  onChanged: _signUpController.validatePassword,
+  Obx(() => PasswordField(
+  controller: controller.passwordController,
+  isPasswordVisible: controller.passwordVisibility.value,
+  onTap: controller.togglePasswordVisibility,
+  onChanged: controller.validatePassword,
 )),
 
-                          Obx(() => _signUpController.passwordError.value.isNotEmpty
+                          Obx(() => controller.passwordError.value.isNotEmpty
                               ? Text(
-                                  _signUpController.passwordError.value,
+                                  controller.passwordError.value,
                                   style: TextStyle(color: Colors.red),
                                 )
                               : SizedBox()),
@@ -83,8 +79,8 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     MyTextButton(
-                      buttonName: 'Register',
-                      onTap: _signUpController.signUp,
+                      buttonName: 'Login',
+                      onTap: controller.signUp,
                       bgColor: Colors.white,
                       textColor: Colors.black87,
                     )

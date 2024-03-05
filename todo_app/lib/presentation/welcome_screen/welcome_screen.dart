@@ -40,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 150.h,
+                      height: 100.h,
                     ),
                     Text(
                       "Manage your tasks with ease",
@@ -85,9 +85,9 @@ class WelcomePage extends StatelessWidget {
                     Expanded(
                       child: MyTextButton(
                         bgColor: Colors.transparent,
-                        buttonName: 'Sign In',
+                        buttonName: 'Login',
                         onTap: () {
-Get.offNamed(RoutesName.signUpScreen);
+Get.offNamed(RoutesName.loginScreen);
                         },
                         textColor: Colors.white,
                       ),
