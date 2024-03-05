@@ -10,7 +10,7 @@ class AppWriteProvider{
     .setSelfSigned(status: true);
     account = Account(client);
   }
-    Future<models.User> signup(Map map) async {
+Future<models.User>  signup(Map map) async {
 
     final response = account!.create(userId: map["userId"], email:  map["email"], password:  map["password"],name: map["name"]);
     return response;
