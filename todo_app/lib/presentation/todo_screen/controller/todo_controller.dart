@@ -19,13 +19,16 @@ class TodoController extends GetxController {
     getTasks(); // Fetch tasks on controller initialization
   }
 
+  // Method to generate unique ID for a task based on user ID and timestamp
   String generateUniqueId(String userId) {
     final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     return '$userId-$timestamp';
   }
 
+  // Method to create a new task
   Future<void> createTask(Todo todo) async {
-
+    // Handling errors during task creation
+    // ignore: body_might_complete_normally_catch_error
     await _todoRepository.createTask(todo).catchError((error) {
       if (error is NetworkException) {
         Get.snackbar('Network Error', 'Network error while creating task');
@@ -35,14 +38,13 @@ class TodoController extends GetxController {
         if (kDebugMode) {
           print('Error creating task: $error');
         }
-        Get.snackbar('Error',('Error creating task'));
-        
+        Get.snackbar('Error', 'Error creating task');
       }
-    },
-    );
+    });
     tasks.add(todo);
   }
 
+  // Method to update an existing task
   Future<void> updateTask(Todo todo) async {
     await _todoRepository.updateTask(todo).catchError((error) {
       if (error is NetworkException) {
@@ -53,8 +55,7 @@ class TodoController extends GetxController {
         if (kDebugMode) {
           print('Error updating task: $error');
         }
-         Get.snackbar('Error','Error updating task');
-       
+        Get.snackbar('Error', 'Error updating task');
       }
     });
     final index = tasks.indexWhere((t) => t.id == todo.id);
@@ -63,6 +64,7 @@ class TodoController extends GetxController {
     }
   }
 
+  // Method to delete a task
   Future<void> deleteTask(String taskId) async {
     await _todoRepository.deleteTask(taskId).catchError((error) {
       if (error is NetworkException) {
@@ -73,12 +75,13 @@ class TodoController extends GetxController {
         if (kDebugMode) {
           print('Error deleting task: $error');
         }
-         Get.snackbar('Error','Error deleting task');
+        Get.snackbar('Error', 'Error deleting task');
       }
     });
     tasks.removeWhere((t) => t.id == taskId);
   }
 
+  // Method to fetch tasks
   Future<void> getTasks() async {
     try {
       tasksStatus.value = Status.loading;
@@ -94,7 +97,7 @@ class TodoController extends GetxController {
       if (kDebugMode) {
         print('Error fetching tasks: $error');
       }
-       Get.snackbar('Error','Error fetching tasks');
+      Get.snackbar('Error', 'Error fetching tasks');
       rethrow;
     }
   }
