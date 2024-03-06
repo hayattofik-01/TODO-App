@@ -18,5 +18,13 @@ Our Todo App is a simple tool to help you manage your tasks easily. It's built w
 4. After getting dependencies run **flutter run**
 
 
-Uploading todapp.mp4…
+
+https://github.com/hayattofik-01/TODO-App/assets/129114795/cb2ebb13-883f-4060-bdb7-c498dc1bfc0b
+
+
+
+
+
+
+
 
