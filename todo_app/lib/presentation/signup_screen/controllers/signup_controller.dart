@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/app/data/provider/appwrite_provider.dart';
 import 'package:todo_app/app/data/repository/auth_repository.dart';
@@ -62,60 +61,66 @@ class SignUpController extends GetxController {
     }
   }
 
-Future<void> signUp() async {
-  try {
-    if (!isSignUpEnabled) return;
-    
-    status(Status.loading);
+  Future<void> signUp() async {
+    try {
+      if (!isSignUpEnabled) return;
+      
+      status(Status.loading);
 
-    await _authRepository.signup({
+      await _authRepository.signup(
+        {
       "userId": ID.unique(),
       "email": emailController.text.trim(),
       "password": passwordController.text.trim(),
       "name": nameController.text.trim(),
-    }).catchError((error){
-      if (error is AppwriteException){
+    }
+      );
+
+      // Show a snackbar with a success message
+      Get.snackbar(
+        'Success',
+        'Successfully registered!',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 4),
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+      // Clear the form
+      nameController.clear();
+      emailController.clear();
+      passwordController.clear();
+
+      // Route to the welcome page after signing up
+      Get.offNamed(RoutesName.loginScreen);
+
+      status(Status.completed);
+    } on AppwriteException catch (e) {
+      status(Status.error);
+      if (e.response != null && e.response!["message"] != null) {
         Get.snackbar(
-      'Error',
-      error.response["message"],
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 4),
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
-
-        
-        
+          'Error',
+          e.response!["message"],
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 4),
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          'An unexpected error occurred',
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 4),
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       }
-
-    });
-
-
-    // Show a snackbar with a success message
-    Get.snackbar(
-      'Success',
-      'Successfully registered!',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 4),
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-
-    // Clear the form
-    nameController.clear();
-    emailController.clear();
-    passwordController.clear();
-
-    // Route to the welcome page after signing up
-    Get.offNamed(RoutesName.welcome);
-
-    status(Status.completed);
-  } catch (e) {
-    status(Status.error);
-    rethrow;
+    } catch (e) {
+      status(Status.error);
+      rethrow;
+    }
   }
-}
-
 
   @override
   void onClose() {

@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:todo_app/core/constants/constants.dart';
-import 'package:todo_app/core/constants/routes/routes_name.dart';
-import 'package:todo_app/presentation/signup_screen/signup_screen.dart';
-import 'package:todo_app/presentation/welcome_screen/screen_widgets/my_text_button.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
+
+import 'package:todo_app/app_exports.dart';
+
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 20.h),
                       child: Center(
-                        child: Container(
+                        child: SizedBox(
                           width: 300.w,
                           child: Padding(
                             padding: EdgeInsets.all(8.w),
@@ -42,7 +42,7 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(
                       height: 100.h,
                     ),
-                    Text(
+                    const Text(
                       "Manage your tasks with ease",
                       style: kHeadline,
                       textAlign: TextAlign.center,
@@ -50,9 +50,9 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Container(
+                    SizedBox(
                       width: 300.w,
-                      child: Text(
+                      child: const Text(
                         "create list of todos, mark them completed when finished , and also track what is done or need to be done",
                         style: kBodyText,
                         textAlign: TextAlign.center,

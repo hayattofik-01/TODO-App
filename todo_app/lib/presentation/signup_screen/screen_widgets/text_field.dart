@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/core/constants/constants.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({
+  const MyTextField({super.key, 
     required this.hintText,
     required this.inputType,
     required this.controller,
@@ -25,18 +25,18 @@ class MyTextField extends StatelessWidget {
         onChanged: onChanged,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.all(20),
           hintText: hintText,
           hintStyle: kBodyText,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(18),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.white,
               width: 1,
             ),

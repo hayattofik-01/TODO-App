@@ -1,15 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:todo_app/core/constants/constants.dart';
-import 'package:todo_app/core/constants/routes/routes_name.dart';
-import 'package:todo_app/presentation/login_screen/controllers/login_controller.dart';
-import 'package:todo_app/presentation/signup_screen/controllers/signup_controller.dart';
 
-import 'package:todo_app/presentation/signup_screen/screen_widgets/password_field.dart';
-import 'package:todo_app/presentation/signup_screen/screen_widgets/text_button.dart';
-import 'package:todo_app/presentation/signup_screen/screen_widgets/text_field.dart';
+
+import 'package:todo_app/app_exports.dart';
 
 class LoginScreen extends GetView<LoginController> {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +15,7 @@ class LoginScreen extends GetView<LoginController> {
           onPressed: () {
             Get.offNamed(RoutesName.intial);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
       ),
       body: SafeArea(
@@ -30,25 +24,25 @@ class LoginScreen extends GetView<LoginController> {
             SliverFillRemaining(
               hasScrollBody: false,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Login ",
                             style: kHeadline,
                           ),
-                          SizedBox(height: 50),
-
+                          SizedBox(height: 50.h),
                           Obx(() => controller.nameError.value.isNotEmpty
                               ? Text(
                                   controller.nameError.value,
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 )
-                              : SizedBox()),
+                              : const SizedBox()),
                           MyTextField(
                             controller: controller.emailController,
                             hintText: 'Email',
@@ -58,32 +52,33 @@ class LoginScreen extends GetView<LoginController> {
                           Obx(() => controller.emailError.value.isNotEmpty
                               ? Text(
                                   controller.emailError.value,
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 )
-                              : SizedBox()),
-  Obx(() => PasswordField(
-  controller: controller.passwordController,
-  isPasswordVisible: controller.passwordVisibility.value,
-  onTap: controller.togglePasswordVisibility,
-  onChanged: controller.validatePassword,
-)),
-
+                              : const SizedBox()),
+                          Obx(() => PasswordField(
+                                controller: controller.passwordController,
+                                isPasswordVisible:
+                                    controller.passwordVisibility.value,
+                                onTap: controller.togglePasswordVisibility,
+                                onChanged: controller.validatePassword,
+                              )),
                           Obx(() => controller.passwordError.value.isNotEmpty
                               ? Text(
                                   controller.passwordError.value,
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 )
-                              : SizedBox()),
+                              : const SizedBox()),
+                          // Add a Spacer or Expanded widget
+                          SizedBox(height: 10.h,),
+                          MyTextButton(
+                            buttonName: 'Login',
+                            onTap: controller.login,
+                            bgColor: Colors.white,
+                            textColor: Colors.black87,
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
-                    MyTextButton(
-                      buttonName: 'Login',
-                      onTap: controller.signUp,
-                      bgColor: Colors.white,
-                      textColor: Colors.black87,
-                    )
                   ],
                 ),
               ),

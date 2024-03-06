@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/core/constants/constants.dart';
 
 class MyTextButton extends StatelessWidget {
-  const MyTextButton({
+  const MyTextButton({super.key, 
     
     required this.buttonName,
     required this.onTap,

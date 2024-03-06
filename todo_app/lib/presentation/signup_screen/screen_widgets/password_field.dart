@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/core/constants/constants.dart';
 
 class PasswordField extends StatelessWidget {
-  const PasswordField({
+  const PasswordField({super.key, 
     required this.isPasswordVisible,
     required this.onTap,
     required this.controller,
@@ -40,18 +40,18 @@ class PasswordField extends StatelessWidget {
               ),
             ),
           ),
-          contentPadding: EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.all(20),
           hintText: 'Password',
           hintStyle: kBodyText,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(18),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.white,
               width: 1,
             ),
